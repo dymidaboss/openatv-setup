@@ -1,0 +1,23 @@
+==> 1/20 Ustawiam hasło root (openatv)
+==> 2/20 Przygotowanie katalogów
+==> 3/20 Aktualizacja list pakietów
+==> 4/20 Aktualizacja zainstalowanych pakietów
+==> 5/20 Dodanie feedów (OSCam, myszka20)
+==> 6/20 Sprzątanie lokalizacji i telnetu
+==> 7/20 Zatrzymuję dekoder (GUI) na czas instalacji
+==> 8/20 Instalacja: kanały/picony, multimedia, SFTP, Wi‑Fi, Tailscale, OSCam
+==> 9/20 Integracja monitorów i auto-aktualizacji (CRON)
+==> 10/20 Ustawianie bootlogo z repo (jeśli nowsze)
+curl: (22) The requested URL returned error: 404
+==> 11/20 Ustawianie satellites.xml z repo (jeśli nowsze)
+curl: (22) The requested URL returned error: 404
+==> 12/20 Synchronizacja skryptów i configów OSCam (bez serwera)
+/tmp/otv.3714/dymidaboss-openatv-setup-ae35c8535e0ba6b4574553b748572e0f102596e1/openatv_postinstall.sh: line 95: /usr/script/pull_updates.sh: Permission denied
+==> 13/20 Ustawienia ServiceApp + exteplayer3
+==> 14/20 Aktualizacja oscam.server (per-dekoder)
+/tmp/otv.3714/dymidaboss-openatv-setup-ae35c8535e0ba6b4574553b748572e0f102596e1/openatv_postinstall.sh: line 109: /usr/script/oscam_server_updater.sh: No such file or directory
+==> 15/20 Start dekodera (GUI)
+==> 16/20 Tailscale — autostart i logowanie
+/tmp/otv.3714/dymidaboss-openatv-setup-ae35c8535e0ba6b4574553b748572e0f102596e1/openatv_postinstall.sh: line 120: /usr/script/tailscale-login.sh: Permission denied
+==> 17/20 Aktywacja SFTP
+==> 18/20 Zapis logu (lokalnie) i wysyłka do repo (jeśli token)
