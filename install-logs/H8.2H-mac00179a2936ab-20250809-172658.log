@@ -1,0 +1,438 @@
+
+==> 1/16 Aktualizacja list pakietów
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/3rdparty/Packages.gz.
+Updated source 'openatv-3rdparty'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/all/Packages.gz.
+Updated source 'openatv-all'.
+Downloading http://updates.mynonpublic.com/oea/5.6/cortexa7hf-vfp/Packages.gz.
+Updated source 'cortexa7hf-vfp-3rdparty-secret-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/Packages.gz.
+Updated source 'openatv-cortexa7hf-vfp'.
+Downloading https://raw.githubusercontent.com/oe-alliance/enigma2-settings-feed/gh-pages/Packages.gz.
+Updated source 'enigma2-settings-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/h8/Packages.gz.
+Updated source 'openatv-h8'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/h8_3rdparty/Packages.gz.
+Updated source 'openatv-h8_3rdparty'.
+Downloading http://repository.graterlia.tv/chlists/Packages.gz.
+Updated source 'myszka20-opkg-feed'.
+Downloading https://raw.githubusercontent.com/oe-alliance/picons-feed/gh-pages/Packages.gz.
+Updated source 'oe-alliance-picon-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-cortexa7hf-vfp/Packages.gz.
+Updated source 'openatv-static-cortexa7hf-vfp'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-h8/Packages.gz.
+Updated source 'openatv-static-h8'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/zgemmah82h/Packages.gz.
+Updated source 'openatv-zgemmah82h'.
+
+==> 2/16 Dodanie feedów (OSCam, myszka20)
+    SoftCAM Feed Universal2 (secret feed) succesfully installed ...     
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/3rdparty/Packages.gz.
+Updated source 'openatv-3rdparty'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/all/Packages.gz.
+Updated source 'openatv-all'.
+Downloading http://updates.mynonpublic.com/oea/5.6/cortexa7hf-vfp/Packages.gz.
+Updated source 'cortexa7hf-vfp-3rdparty-secret-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/Packages.gz.
+Updated source 'openatv-cortexa7hf-vfp'.
+Downloading https://raw.githubusercontent.com/oe-alliance/enigma2-settings-feed/gh-pages/Packages.gz.
+Updated source 'enigma2-settings-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/h8/Packages.gz.
+Updated source 'openatv-h8'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/h8_3rdparty/Packages.gz.
+Updated source 'openatv-h8_3rdparty'.
+Downloading http://repository.graterlia.tv/chlists/Packages.gz.
+Updated source 'myszka20-opkg-feed'.
+Downloading https://raw.githubusercontent.com/oe-alliance/picons-feed/gh-pages/Packages.gz.
+Updated source 'oe-alliance-picon-feed'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-cortexa7hf-vfp/Packages.gz.
+Updated source 'openatv-static-cortexa7hf-vfp'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-h8/Packages.gz.
+Updated source 'openatv-static-h8'.
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/zgemmah82h/Packages.gz.
+Updated source 'openatv-zgemmah82h'.
+
+==> 3/16 Sprzątanie: zbędne pakiety (locale/telnet)
+Solver encountered 1 problem(s):
+Problem 1/1:
+  - package oe-alliance-base-7.6-beta-r4.zgemmah82h requires oe-alliance-enigma2, but none of the providers can be installed
+  - package oe-alliance-enigma2-7.6-beta-r3.h8 requires enigma2-locale-meta, but none of the providers can be installed
+  - package openatv-base-1.0-r37.h8 requires oe-alliance-base, but none of the providers can be installed
+  - conflicting requests
+  - problem with installed package openatv-base-1.0-r37.h8
+
+Solution 1:
+  - allow deinstallation of openatv-base-1.0-r37.h8
+
+Solution 2:
+  - do not ask to deinstall enigma2-locale-meta
+
+  - do not ask to deinstall enigma2-locale-meta
+
+
+
+
+==> 4/16 Zatrzymuję Dekoder (init 4) na czas instalacji
+
+==> 5/16 Instalacja: listy/picony, multimedia, SFTP, Wi‑Fi, Tailscale, OSCam
+Installing enigma2-channels-hotbird-polskie-myszka20 (20250718) on root
+Downloading http://repository.graterlia.tv/chlists/enigma2-channels-hotbird-polskie-myszka20_20250718_all.ipk.
+Installing enigma2-picons-hotbird-polskie-220x132x8-myszka20 (20250718) on root
+Downloading http://repository.graterlia.tv/chlists/enigma2-picons-hotbird-polskie-220x132x8-myszka20_20250718_all.ipk.
+Installing iw (6.9) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/iw_6.9-r0_cortexa7hf-vfp.ipk.
+Installing exteplayer3 (179+git141+ac5140d0+ac5140db67) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/exteplayer3_179+git141+ac5140d0+ac5140db67-r0_cortexa7hf-vfp.ipk.
+Installing kernel-module-tun-4.4.176 (4.4.176) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/h8/kernel-module-tun-4.4.176_4.4.176-.1_h8.ipk.
+Installing python3-websocket-client (1.7.0) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/python3-websocket-client_1.7.0-r0_cortexa7hf-vfp.ipk.
+Installing gstplayer (0.1) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstplayer_0.1-r0_cortexa7hf-vfp.ipk.
+Installing python3-pycurl (7.45.6) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/python3-pycurl_7.45.6-r0_cortexa7hf-vfp.ipk.
+Installing gst-ifdsrc (1.0+gitNone0+e424e9fd8d) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gst-ifdsrc_1.0+gitNone0+e424e9fd8d-r1_cortexa7hf-vfp.ipk.
+Installing duktape (2.7.0) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/duktape_2.7.0-r0_cortexa7hf-vfp.ipk.
+Installing uchardet (0.0.8) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/uchardet_0.0.8-r0_cortexa7hf-vfp.ipk.
+Installing libpcsclite1 (2.0.3) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libpcsclite1_2.0.3-r0_cortexa7hf-vfp.ipk.
+Installing libdvbcsa1 (1.1.0+git60+f25351d0+f25351d705) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libdvbcsa1_1.1.0+git60+f25351d0+f25351d705-r0_cortexa7hf-vfp.ipk.
+Installing iptables (1.8.11) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/iptables_1.8.11-r0_cortexa7hf-vfp.ipk.
+Installing iptables-module-xt-standard (1.8.11) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/iptables-module-xt-standard_1.8.11-r0_cortexa7hf-vfp.ipk.
+Installing qtwebkit-qmlplugins (5.15.16+git0+ac8ebc6c3a) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-h8/qtwebkit-qmlplugins_5.15.16+git0+ac8ebc6c3a-r0_h8.ipk.
+Installing libxslt (1.1.43) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libxslt_1.1.43-r0_cortexa7hf-vfp.ipk.
+Installing qtwebkit-plugins (5.15.16+git0+ac8ebc6c3a) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/STATIC/static-h8/qtwebkit-plugins_5.15.16+git0+ac8ebc6c3a-r0_h8.ipk.
+Installing gstreamer1.0-plugins-good-videobox (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-videobox_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-imagefreeze (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-imagefreeze_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-equalizer (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-equalizer_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-deinterlace (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-deinterlace_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-flxdec (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-flxdec_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-debug (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-debug_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-videomixer (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-videomixer_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-adaptivedemux2 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-adaptivedemux2_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-interleave (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-interleave_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-multipart (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-multipart_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-y4menc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-y4menc_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-cutter (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-cutter_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-xingmux (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-xingmux_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-monoscope (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-monoscope_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-navigationtest (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-navigationtest_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-effectv (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-effectv_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-wavenc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-wavenc_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-videocrop (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-videocrop_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-png (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-png_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-smpte (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-smpte_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-alaw (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-alaw_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-ossaudio (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-ossaudio_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-multifile (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-multifile_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-goom2k1 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-goom2k1_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-replaygain (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-replaygain_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-pulseaudio (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-pulseaudio_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-mulaw (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-mulaw_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-dtmf (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-dtmf_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-alphacolor (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-alphacolor_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-shapewipe (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-shapewipe_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-goom (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-goom_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-alpha (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-alpha_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-jpeg (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-jpeg_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-auparse (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-auparse_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-level (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-level_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-good-videofilter (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-good-videofilter_1.26.2-r2_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-vmnc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-vmnc_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-audiobuffersplit (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-audiobuffersplit_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-videoframe-audiolevel (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-videoframe-audiolevel_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-bz2 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-bz2_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstwebrtc-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstwebrtc-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-sndfile (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-sndfile_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-dvb (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-dvb_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-resindvd (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-resindvd_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-bluez (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-bluez_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-inter (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-inter_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-videofiltersbad (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-videofiltersbad_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-dvbsubenc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-dvbsubenc_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-fieldanalysis (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-fieldanalysis_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstplay-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstplay-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-legacyrawparse (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-legacyrawparse_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-uvcgadget (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-uvcgadget_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-webp (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-webp_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstsctp-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstsctp-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-dvdspu (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-dvdspu_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-debugutilsbad (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-debugutilsbad_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-rfbsrc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-rfbsrc_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-codecalpha (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-codecalpha_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-adpcmdec (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-adpcmdec_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-bayer (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-bayer_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgsttranscoder-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgsttranscoder-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-asfmux (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-asfmux_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-aes (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-aes_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-smooth (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-smooth_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-geometrictransform (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-geometrictransform_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-segmentclip (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-segmentclip_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstanalytics-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstanalytics-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-fbdevsink (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-fbdevsink_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-transcode (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-transcode_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-frei0r (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-frei0r_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-videosignal (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-videosignal_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-mpegpsmux (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-mpegpsmux_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstbasecamerabinsrc-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstbasecamerabinsrc-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstphotography-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstphotography-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-gaudieffects (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-gaudieffects_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-jpegformat (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-jpegformat_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-aiff (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-aiff_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-audiofxbad (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-audiofxbad_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-switchbin (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-switchbin_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-ivtc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-ivtc_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-pcapparse (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-pcapparse_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-rist (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-rist_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-speed (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-speed_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-midi (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-midi_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-shm (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-shm_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-pnm (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-pnm_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-decklink (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-decklink_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-rtmp2 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-rtmp2_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-adpcmenc (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-adpcmenc_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-proxy (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plerror: opkg_download_backend: Failed to download https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-gdp_1.26.2-r0_cortexa7hf-vfp.ipk, wget returned 4.
+error: opkg_install_pkg: Failed to download gstreamer1.0-plugins-bad-gdp. Perhaps you need to run 'opkg update'?
+New channel list installed
+ugins-bad-proxy_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstinsertbin-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstinsertbin-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-dvbsuboverlay (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-dvbsuboverlay_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing libgstmse-1.0-0 (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/libgstmse-1.0-0_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-id3tag (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-id3tag_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-dtls (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-dtls_1.26.2-r0_cortexa7hf-vfp.ipk.
+Installing gstreamer1.0-plugins-bad-gdp (1.26.2) on root
+Downloading https://feeds2.mynonpublic.com/7.6-beta/h8/cortexa7hf-vfp/gstreamer1.0-plugins-bad-gdp_1.26.2-r0_cortexa7hf-vfp.ipk.
+Configuring gstreamer1.0-plugins-bad-vmnc.
+Configuring gstreamer1.0-plugins-bad-audiobuffersplit.
+Configuring gstreamer1.0-plugins-bad-videoframe-audiolevel.
+Configuring gstreamer1.0-plugins-good-videobox.
+Configuring gstreamer1.0-plugins-good-imagefreeze.
+Configuring gstreamer1.0-plugins-bad-bz2.
+Configuring libgstwebrtc-1.0-0.
+Configuring gstreamer1.0-plugins-bad-sndfile.
+Configuring gstreamer1.0-plugins-good-equalizer.
+Configuring iw.
+Configuring gstreamer1.0-plugins-bad-dvb.
+Configuring gstreamer1.0-plugins-bad-resindvd.
+Configuring gstreamer1.0-plugins-bad-bluez.
+Configuring gstreamer1.0-plugins-bad-inter.
+Configuring gstreamer1.0-plugins-good-deinterlace.
+Configuring gstplayer.
+Configuring gstreamer1.0-plugins-bad-videofiltersbad.
+Configuring gstreamer1.0-plugins-bad-dvbsubenc.
+Configuring gstreamer1.0-plugins-good-flxdec.
+Configuring gstreamer1.0-plugins-bad-fieldanalysis.
+Configuring libgstplay-1.0-0.
+Configuring gstreamer1.0-plugins-good-debug.
+Configuring python3-pycurl.
+Configuring gstreamer1.0-plugins-bad-legacyrawparse.
+Configuring gstreamer1.0-plugins-bad-uvcgadget.
+Configuring gstreamer1.0-plugins-good-videomixer.
+Configuring gstreamer1.0-plugins-bad-webp.
+Configuring libgstsctp-1.0-0.
+Configuring gstreamer1.0-plugins-bad-dvdspu.
+Configuring gstreamer1.0-plugins-bad-debugutilsbad.
+Configuring gstreamer1.0-plugins-good-adaptivedemux2.
+Configuring libpcsclite1.
+Configuring gstreamer1.0-plugins-bad-rfbsrc.
+Configuring gstreamer1.0-plugins-bad-codecalpha.
+Configuring python3-websocket-client.
+Configuring gstreamer1.0-plugins-bad-adpcmdec.
+Configuring gstreamer1.0-plugins-bad-bayer.
+Configuring libgsttranscoder-1.0-0.
+Configuring enigma2-channels-hotbird-polskie-myszka20.
+Configuring gstreamer1.0-plugins-good-interleave.
+Configuring gstreamer1.0-plugins-bad-asfmux.
+Configuring gstreamer1.0-plugins-bad-aes.
+Configuring gstreamer1.0-plugins-bad-smooth.
+Configuring gstreamer1.0-plugins-bad-geometrictransform.
+Configuring gstreamer1.0-plugins-bad-segmentclip.
+Configuring libgstanalytics-1.0-0.
+Configuring gstreamer1.0-plugins-good-multipart.
+Configuring gstreamer1.0-plugins-good-y4menc.
+Configuring gstreamer1.0-plugins-bad-fbdevsink.
+Configuring enigma2-picons-hotbird-polskie-220x132x8-myszka20.
+Configuring gstreamer1.0-plugins-bad-transcode.
+Configuring gstreamer1.0-plugins-bad-frei0r.
+Configuring gstreamer1.0-plugins-bad-videosignal.
+Configuring gstreamer1.0-plugins-good-cutter.
+Configuring gstreamer1.0-plugins-bad-mpegpsmux.
+Configuring gstreamer1.0-plugins-good-xingmux.
+Configuring gstreamer1.0-plugins-good-monoscope.
+Configuring libgstbasecamerabinsrc-1.0-0.
+Configuring libgstphotography-1.0-0.
+Configuring gstreamer1.0-plugins-bad-gaudieffects.
+Configuring gstreamer1.0-plugins-bad-jpegformat.
+Configuring gstreamer1.0-plugins-good-navigationtest.
+Configuring iptables.
+Configuring iptables-module-xt-standard.
+Configuring gstreamer1.0-plugins-bad-aiff.
+Configuring gstreamer1.0-plugins-bad-audiofxbad.
+Configuring gstreamer1.0-plugins-bad-switchbin.
+Configuring gstreamer1.0-plugins-bad-ivtc.
+Configuring gstreamer1.0-plugins-bad-pcapparse.
+Configuring gstreamer1.0-plugins-bad-rist.
+Configuring gstreamer1.0-plugins-good-effectv.
+Configuring gstreamer1.0-plugins-bad-speed.
+Configuring gstreamer1.0-plugins-bad-midi.
+Configuring gstreamer1.0-plugins-good-wavenc.
+Configuring gstreamer1.0-plugins-bad-shm.
+Configuring gstreamer1.0-plugins-bad-pnm.
+Configuring gstreamer1.0-plugins-bad-decklink.
+Configuring gst-ifdsrc.
+Configuring gstreamer1.0-plugins-good-videocrop.
+Configuring gstreamer1.0-plugins-bad-rtmp2.
+Configuring gstreamer1.0-plugins-bad-adpcmenc.
+Configuring gstreamer1.0-plugins-bad-proxy.
+Configuring libgstinsertbin-1.0-0.
+Configuring gstreamer1.0-plugins-bad-dvbsuboverlay.
+Configuring libgstmse-1.0-0.
+Configuring gstreamer1.0-plugins-bad-id3tag.
+Configuring gstreamer1.0-plugins-good-png.
+Configuring gstreamer1.0-plugins-good-smpte.
+Configuring gstreamer1.0-plugins-bad-dtls.
+Configuring qtwebkit-qmlplugins.
+Configuring gstreamer1.0-plugins-good-alaw.
+Configuring gstreamer1.0-plugins-good-ossaudio.
+Configuring exteplayer3.
+Configuring gstreamer1.0-plugins-good-multifile.
+Configuring gstreamer1.0-plugins-good-goom2k1.
+Configuring libdvbcsa1.
+Configuring gstreamer1.0-plugins-good-replaygain.
+Configuring libxslt.
+Configuring gstreamer1.0-plugins-good-pulseaudio.
+Configuring gstreamer1.0-plugins-good-mulaw.
+Configuring gstreamer1.0-plugins-good-dtmf.
+Configuring gstreamer1.0-plugins-good-alphacolor.
+Configuring gstreamer1.0-plugins-good-shapewipe.
+Configuring gstreamer1.0-plugins-good-goom.
+Configuring kernel-module-tun-4.4.176.
+Configuring duktape.
+Configuring gstreamer1.0-plugins-good-alpha.
+Configuring gstreamer1.0-plugins-good-jpeg.
+Configuring gstreamer1.0-plugins-good-auparse.
+Configuring gstreamer1.0-plugins-good-level.
+Configuring uchardet.
+Configuring gstreamer1.0-plugins-good-videofilter.
+Configuring qtwebkit-plugins.
+
+==> 6/16 Skrypty do /usr/script
+
+==> 7/16 CRON: monitor, zdalne komendy, auto-update, SRVID2, heartbeat
+
+==> 8/16 Tailscale: logowanie bez blokowania
+/tmp/tmp.FytRIf/openatv_postinstall.sh: line 75: /usr/script/tailscale-login.sh: Permission denied
+
+==> 9/16 Aktualizacja zasobów (skrypty/bootlogo/satellites/OSCam)
+/tmp/tmp.FytRIf/openatv_postinstall.sh: line 78: /usr/script/pull_updates.sh: Permission denied
+
+==> 10/16 Start Dekodera (init 3)
+
+==> 11/16 Rejestracja dekodera w repo
+/tmp/tmp.FytRIf/openatv_postinstall.sh: line 85: /usr/script/register_in_repo.sh: Permission denied
+
+==> 12/16 Upload logu instalacji

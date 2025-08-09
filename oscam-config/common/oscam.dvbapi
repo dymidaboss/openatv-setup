@@ -1,0 +1,5 @@
+# Minimalny plik dvbapi (opcjonalnie). 
+# Zostaw pusty lub wpisz priorytety/ignorowane CAID gdy będzie potrzeba.
+# Przykład (WYŁĄCZONE):
+# P: 0100
+# I: 4AE1

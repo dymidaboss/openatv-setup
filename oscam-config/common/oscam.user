@@ -1,0 +1,6 @@
+[account]
+user                          = dvbapi
+pwd                           = dvbapi
+group                         = 1
+au                            = cl_cccam
+monlevel                      = 1
