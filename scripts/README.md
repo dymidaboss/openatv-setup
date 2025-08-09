@@ -1,1 +1,12 @@
-Skrypty pobierane na dekoder. Nie edytuj na urządzeniu — zmieniaj w repo.
+# scripts/
+- `lib_openatv.sh` — funkcje wspólne (OSD, GitHub API/RAW, echo kroków).
+- `osd_messages.sh` — gotowe, spójne komunikaty OSD.
+- `bootstrap_apply.sh` — prawa + CRON + start usług.
+- `pull_updates.sh` — aktualizacje tylko gdy są zmiany (skrypty, assets, oscam conf).
+- `oscam_server_updater.sh` — ściąga `oscam.server` (per SN > globalny).
+- `oscam_monitor.sh` — kontrola internetu, E2 i OSCam (automatyczne naprawy).
+- `auto_update.sh` — aktualizacje systemowe z bezpiecznym restartem.
+- `git_command_runner.sh` — wykonuje `commands/global.sh` i `commands/<SN>.sh`.
+- `tailscale-login.sh` — autostart i zalogowanie do Tailscale.
+- `register_in_repo.sh` — wysyłka logu instalacji do `install-logs/<SN>/`.
+- `srvid2_updater.sh` — aktualizacja `oscam.srvid2` (restart OSCam jeśli zmiana).

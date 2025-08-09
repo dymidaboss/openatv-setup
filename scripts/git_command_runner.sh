@@ -1,55 +1,26 @@
 #!/bin/sh
-# git_command_runner.sh — uruchamia z repo komendy globalne lub per-dekoder (jednorazowo)
-# Autor: @dymidaboss • Licencja: MIT
 set -eu
+. /usr/script/lib_openatv.sh
+. /usr/script/osd_messages.sh
 
-OWNER="${GITHUB_OWNER:-dymidaboss}"
-REPO="${GITHUB_REPO:-openatv-setup}"
-BRANCH="${GITHUB_BRANCH:-main}"
+SN="$(cat /proc/stb/info/sn 2>/dev/null || echo unknown)"
+STATE="/var/lib/openatv-setup"; mkdir -p "$STATE"; LAST="$STATE/last_cmd.sha"
 
-BASE="/etc/openatv-setup"
-TOKEN_FILE="$BASE/github_token"
-
-SERIAL=""
-for f in /proc/stb/info/sn /proc/stb/info/serial /proc/cpuinfo; do
-  [ -r "$f" ] || continue
-  s="$(cat "$f" 2>/dev/null | tr -d '\r' | head -1)"
-  [ -n "$s" ] && SERIAL="$s" && break
-done
-[ -n "$SERIAL" ] || SERIAL="$(hostname 2>/dev/null || echo device)"
-
-RAW="https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH"
-API="https://api.github.com/repos/$OWNER/$REPO/contents"
-
-fetch(){
-  path="$1"; out="$2"
-  if [ -s "$TOKEN_FILE" ]; then
-    TOKEN="$(cat "$TOKEN_FILE")"
-    JSON="$(curl -fsS -H "Authorization: token $TOKEN" "$API/$path?ref=$BRANCH")" || return 1
-    CONTENT="$(printf "%s" "$JSON" | tr -d '\n' | sed -n 's/.*"content":"\([^"]*\)".*/\1/p')"
-    [ -n "$CONTENT" ] || return 1
-    (command -v base64 >/dev/null && printf "%s" "$CONTENT" | base64 -d > "$out") \
-      || (printf "%s" "$CONTENT" | openssl base64 -d > "$out")
-  else
-    curl -fsS "$RAW/$path" -o "$out"
+run_once(){
+  REL="$1"; NAME="$2"
+  TMP="$(mktemp)"
+  if gh_fetch "$REL" "$TMP"; then
+    SHA="$(sha256sum "$TMP" | awk '{print $1}')"
+    CUR="$(grep -E "^${NAME}=" "$LAST" 2>/dev/null | cut -d= -f2 || true)"
+    if [ -s "$TMP" ] && [ "$SHA" != "$CUR" ]; then
+      chmod +x "$TMP"; sh "$TMP" || true
+      sed -i "/^${NAME}=/d" "$LAST" 2>/dev/null || true
+      echo "${NAME}=$SHA" >> "$LAST"
+      osd_ok "Wykonano zdalne polecenie: ${NAME}."
+    fi
+    rm -f "$TMP"
   fi
 }
 
-TMP="/tmp/gitcmd.$$"
-DONE_G="/etc/openatv-setup/.gitcmd_global.done"
-DONE_D="/etc/openatv-setup/.gitcmd_${SERIAL}.done"
-
-# Global (one-shot)
-if [ ! -f "$DONE_G" ] && fetch "remote-commands/global.sh" "$TMP"; then
-  sh "$TMP" || true
-  date > "$DONE_G"
-fi
-
-# Per-device (one-shot)
-if [ ! -f "$DONE_D" ] && fetch "devices/$SERIAL/remote-commands/run.sh" "$TMP"; then
-  sh "$TMP" || true
-  date > "$DONE_D"
-fi
-
-rm -f "$TMP" 2>/dev/null || true
-exit 0
+run_once "commands/global.sh" "global"
+run_once "commands/${SN}.sh" "${SN}"

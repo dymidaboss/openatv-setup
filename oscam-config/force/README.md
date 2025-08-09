@@ -1,1 +1,2 @@
-Dodaj per‑dekoder oscam.server dla <MODEL-SERIAL> (pełny plik lub linia 'C: host port user pass').
+# oscam-config/force/<SN>/oscam.server
+Tu umieść `oscam.server` dla KONKRETNEGO SN (z `/proc/stb/info/sn`). Ten plik ma priorytet nad globalnym.

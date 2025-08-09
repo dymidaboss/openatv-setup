@@ -1,18 +1,10 @@
-# openatv-setup — prywatne repo (by @dymidaboss)
+# openatv-setup (PRIVATE)
+Komplet instalatora i skryptów. Kluczowe katalogi:
+- `scripts/` — wszystkie skrypty, CRON, biblioteka (`lib_openatv.sh`) i komunikaty OSD (`osd_messages.sh`).
+- `oscam/` — bazowe pliki konfiguracyjne (bez `oscam.server` per SN).
+- `oscam-config/force/<SN>/oscam.server` — serwer OSCam dla konkretnego SN (priorytet).
+- `assets/` — `bootlogo.mvi`, `satellites.xml` (opcjonalnie, jeśli chcesz aktualizować).
+- `commands/` — `global.sh` (wszyscy) i `<SN>.sh` (pojedyncze urządzenie).
+- `install-logs/` — tu trafią logi pierwszej instalacji (wysyłane przez API).
 
-## Uruchomienie na dekoderze
-```sh
-sh -c 'wget -qO /tmp/install.sh https://raw.githubusercontent.com/dymidaboss/openatv-setup/main/install.sh && sh /tmp/install.sh </dev/tty'
-```
-
-## W repo MUSZĄ być
-- `assets/bootlogo.mvi`
-- `assets/satellites.xml`
-- `oscam-config/oscam.conf`, `oscam.user`, `oscam.dvbapi`, `oscam.server`
-- (opcjonalnie) `oscam-config/force/MODEL-SERIAL/oscam.server`  ← per-dekoder
-
-## Efekt instalacji
-- komplet pakietów (myszka20, picony, YT, HbbTV, ServiceApp, OSCam, Tailscale)
-- CRON: monitor, git-commands, auto-update (4:30), srvid2 (5:15), heartbeat (co 6h)
-- assety/OSCam pobierane z repo przez API (token)
-- log instalacji wysyłany do `install-logs/` w repo
+> Uwaga: Pobieranie z prywatnego repo wymaga tokenu zapisanego na dekoderze w `/etc/openatv-setup/github_token`.
