@@ -1,94 +1,137 @@
 #!/bin/sh
+# openatv_postinstall.sh — @dymidaboss
 set -eu
+export OSD_SILENT=1
 LOG="/home/root/openatv_postinstall_$(date +%Y%m%d-%H%M%S).log"
-exec > >(tee -a "$LOG") 2>&1
-say(){ echo "==> $*"; }
+mkdir -p /etc/openatv-setup /usr/script /var/log >/dev/null 2>&1 || true
 
-# 0) hasło
-say "0/20 Ustawiam hasło root (openatv)"
-( echo "root:openatv" | chpasswd ) || echo "(INFO) Nie zmieniono hasła — kontynuuję."
+say(){ echo "$@"; }
+step(){ echo "==> $1" | tee -a "$LOG"; }
+info(){ echo "(INFO) $1" | tee -a "$LOG"; }
+err(){ echo "(!) $1" | tee -a "$LOG"; }
 
-# 1) opkg update
-say "1/20 Aktualizacja list pakietów"
-opkg update >/dev/null 2>&1 || true
+gh_fetch() {
+  REMOTE="$1"; DEST="$2"
+  OWNER="${GITHUB_OWNER:-dymidaboss}"; REPO="${GITHUB_REPO:-openatv-setup}"; BRANCH="${GITHUB_BRANCH:-main}"
+  TOK=""; [ -f /etc/openatv-setup/github_token ] && TOK="$(cat /etc/openatv-setup/github_token 2>/dev/null)"
+  # API (private)
+  if [ -n "$TOK" ]; then
+    JSON="$(curl -fsS -H "Authorization: token $TOK" "https://api.github.com/repos/$OWNER/$REPO/contents/$REMOTE?ref=$BRANCH" 2>/dev/null || true)"
+    CNT="$(printf "%s" "$JSON" | tr -d '\n' | sed -n 's/.*"content":"\([^"]*\)".*/\1/p')"
+    if [ -n "$CNT" ]; then
+      (command -v base64 >/dev/null && printf "%s" "$CNT" | base64 -d > "$DEST") || (printf "%s" "$CNT" | openssl base64 -d > "$DEST")
+      return 0
+    fi
+  fi
+  # RAW (public)
+  curl -fsSL "https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH/$REMOTE" -o "$DEST"
+}
 
-# 2) feedy
-say "2/20 Dodanie feedów (OSCam, myszka20)"
-wget -O - -q http://updates.mynonpublic.com/oea/feed | bash || true
-echo "src/gz myszka20-opkg-feed http://repository.graterlia.tv/chlists" > /etc/opkg/myszka20-opkg-feed.conf || true
-opkg update >/dev/null 2>&1 || true
+step "0/20 Ustawiam hasło root (openatv)"
+if echo 'root:openatv' | chpasswd 2>>"$LOG"; then :; else
+  HASH=""
+  if command -v openssl >/dev/null 2>&1; then HASH="$(openssl passwd -6 'openatv' 2>>"$LOG" || true)"; fi
+  if [ -z "$HASH" ] && command -v python3 >/dev/null 2>&1; then
+    HASH="$(python3 - <<'PY'
+import crypt
+print(crypt.crypt("openatv", crypt.mksalt(crypt.METHOD_SHA512)))
+PY
+)"
+  fi
+  if [ -n "$HASH" ] && grep -q '^root:' /etc/shadow; then
+    sed -i "s|^root:[^:]*:|root:${HASH}:|" /etc/shadow && info "Hasło ustawione przez /etc/shadow"
+  else
+    info "Nie zmieniono hasła — kontynuuję."
+  fi
+fi
 
-# 3) sprzątanie
-say "3/20 Sprzątanie nieużywanych lokalizacji i telnetu"
-opkg remove --autoremove busybox-telnetd >/dev/null 2>&1 || true
+step "1/20 Aktualizacja list pakietów"
+opkg update >>"$LOG" 2>&1 || true
 
-# 4) stop GUI
-say "4/20 Zatrzymuję dekoder (GUI) na czas instalacji"; init 4 >/dev/null 2>&1 || true; sleep 2
+step "2/20 Dodanie feedów (OSCam, myszka20)"
+wget -O - -q http://updates.mynonpublic.com/oea/feed | bash >>"$LOG" 2>&1 || true
+echo "src/gz myszka20-opkg-feed http://repository.graterlia.tv/chlists" > /etc/opkg/myszka20-opkg-feed.conf
 
-# 5) instalacje
-say "5/20 Instalacja: kanały/picony, multimedia, SFTP, Wi‑Fi, Tailscale, OSCam"
-opkg install enigma2-channels-hotbird-polskie-myszka20 enigma2-picons-hotbird-polskie-220x132x8-myszka20 enigma2-plugin-softcams-oscam-stable enigma2-plugin-extensions-openwebif openssh-sftp-server tailscale wpa-supplicant wpa-supplicant-cli wireless-tools iw enigma2-plugin-extensions-youtube python3-yt-dlp enigma2-plugin-extensions-ytdlwrapper enigma2-plugin-extensions-hbbtv-qt enigma2-plugin-extensions-e2iplayer enigma2-plugin-extensions-e2iplayer-deps enigma2-plugin-systemplugins-serviceapp exteplayer3 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly >/dev/null 2>&1 || true
+step "3/20 Sprzątanie nieużywanych lokalizacji i telnetu"
+opkg remove --autoremove busybox-telnetd enigma2-locale-de enigma2-locale-fr enigma2-locale-ru enigma2-locale-it enigma2-locale-es 2>>"$LOG" || true
 
-# 6) wstępne pobranie libów i CRON
-say "6/20 Integracja biblioteki i CRON"
-mkdir -p /usr/script
-RAW_BASE="https://raw.githubusercontent.com/${GITHUB_OWNER:-dymidaboss}/${GITHUB_REPO:-openatv-setup}/${GITHUB_BRANCH:-main}"
-(wget -qO /usr/script/lib_openatv.sh "$RAW_BASE/scripts/lib_openatv.sh" || true) && chmod 755 /usr/script/lib_openatv.sh || true
-(wget -qO /usr/script/osd_messages.sh "$RAW_BASE/scripts/osd_messages.sh" || true) && chmod 755 /usr/script/osd_messages.sh || true
-. /usr/script/lib_openatv.sh
-. /usr/script/osd_messages.sh
-TMP="$(mktemp)"; if gh_fetch "scripts/bootstrap_apply.sh" "$TMP"; then chmod 755 "$TMP"; sh "$TMP"; fi; rm -f "$TMP"
+step "4/20 Zatrzymanie dekodera (GUI) na czas instalacji"
+init 4 >/dev/null 2>&1 || true
+sleep 2
 
-# 7) bootlogo
-say "7/20 Ustawianie bootlogo z repo (jeśli nowsze)"
-TMP="$(mktemp)"; if gh_fetch "assets/bootlogo.mvi" "$TMP"; then cp -f "$TMP" /usr/share/bootlogo.mvi; command -v showiframe >/dev/null && showiframe /usr/share/bootlogo.mvi || true; fi; rm -f "$TMP"
+step "5/20 Instalacja: kanały/picony, multimedia, SFTP, Wi-Fi, Tailscale, OSCam"
+opkg update >>"$LOG" 2>&1 || true
+opkg install enigma2-channels-hotbird-polskie-myszka20 enigma2-picons-hotbird-polskie-220x132x8-myszka20   enigma2-plugin-extensions-openwebif openssh-sftp-server tailscale wpa-supplicant wpa-supplicant-cli wireless-tools iw   enigma2-plugin-extensions-hbbtv-qt enigma2-plugin-systemplugins-serviceapp exteplayer3 gstreamer1.0-plugins-good   gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly enigma2-plugin-softcams-oscam-stable python3-logging   >>"$LOG" 2>&1 || true
 
-# 8) satellites
-say "8/20 Ustawianie satellites.xml z repo (jeśli nowsze)"
-TMP="$(mktemp)"; if gh_fetch "assets/satellites.xml" "$TMP"; then cp -f "$TMP" /etc/tuxbox/satellites.xml; fi; rm -f "$TMP"
-
-# 9) skrypty do /usr/script
-say "9/20 Synchronizacja skryptów (chmod 755)"
-for s in lib_openatv.sh osd_messages.sh oscam_monitor.sh oscam_server_updater.sh pull_updates.sh srvid2_updater.sh auto_update.sh git_command_runner.sh tailscale-login.sh register_in_repo.sh; do
-  gh_fetch "scripts/${s}" "/usr/script/${s}" && chmod 755 "/usr/script/${s}" || true
+step "6/20 Kopiowanie skryptów i biblioteki"
+for f in scripts/lib_openatv.sh scripts/osd_messages.sh scripts/bootstrap_apply.sh scripts/pull_updates.sh scripts/oscam_server_updater.sh scripts/oscam_monitor.sh scripts/srvid2_updater.sh scripts/auto_update.sh scripts/git_command_runner.sh scripts/tailscale-login.sh scripts/register_in_repo.sh; do
+  gh_fetch "$f" "/usr/script/$(basename "$f")" >>"$LOG" 2>&1 || true
 done
+chmod 755 /usr/script/*.sh 2>/dev/null || true
+. /usr/script/lib_openatv.sh 2>/dev/null || true
 
-# 10) oscam bazowe
-say "10/20 Konfiguracja OSCam (bez serwera)"
-CFG="/etc/tuxbox/config/oscam-stable"; mkdir -p "$CFG"
-gh_fetch "oscam/oscam.conf" "$CFG/oscam.conf" || true
-gh_fetch "oscam/oscam.user" "$CFG/oscam.user" || true
-gh_fetch "oscam/oscam.dvbapi" "$CFG/oscam.dvbapi" || true
-/etc/init.d/softcam.oscam-stable restart >/dev/null 2>&1 || /etc/init.d/softcam restart >/dev/null 2>&1 || true
+step "7/20 Ustawianie bootlogo z repo (jeśli nowsze)"
+if gh_fetch assets/bootlogo.mvi /tmp/bootlogo.mvi 2>>"$LOG"; then
+  if ! cmp -s /tmp/bootlogo.mvi /usr/share/bootlogo.mvi 2>/dev/null; then
+    cp -f /tmp/bootlogo.mvi /usr/share/bootlogo.mvi && (command -v showiframe >/dev/null 2>&1 && showiframe /usr/share/bootlogo.mvi >/dev/null 2>&1 || true)
+  fi
+fi
 
-# 11) serviceapp
-say "11/20 Ustawienia ServiceApp i exteplayer3"
-sed -i -e '/^config.plugins.serviceapp/d' -e '/^config.plugins.iptvplayer.exteplayer3path/d' /etc/enigma2/settings 2>/dev/null || true
-{ echo "config.plugins.serviceapp.servicemp3.player=exteplayer3"; echo "config.plugins.serviceapp.servicemp3.replace=true"; echo "config.plugins.iptvplayer.exteplayer3path=/usr/bin/exteplayer3"; } >> /etc/enigma2/settings
+step "8/20 Ustawianie satellites.xml z repo (jeśli nowsze)"
+if gh_fetch assets/satellites.xml /tmp/sat.xml 2>>"$LOG"; then
+  if ! cmp -s /tmp/sat.xml /etc/tuxbox/satellites.xml 2>/dev/null; then
+    cp -f /tmp/sat.xml /etc/tuxbox/satellites.xml
+  fi
+fi
 
-# 12) oscam.server
-say "12/20 Aktualizacja oscam.server (per‑dekoder)"
-/usr/script/oscam_server_updater.sh || true
+step "9/20 Synchronizacja skryptów (ostatnie poprawki)"
+/usr/script/bootstrap_apply.sh >>"$LOG" 2>&1 || true
 
-# 13) start GUI
-say "13/20 Start dekodera (GUI)"; init 3 >/dev/null 2>&1 || true; sleep 2
+step "10/20 Konfiguracja OSCam (bazowe pliki, bez serwera per-SN)"
+CFGDIR="/etc/tuxbox/config/oscam-stable"; mkdir -p "$CFGDIR"
+fetch_or_skip(){ if gh_fetch "$1" "$2" 2>>"$LOG"; then echo "  • $1 -> $(basename "$2")" >>"$LOG"; return 0; else echo "  • brak $1" >>"$LOG"; return 1; fi; }
+fetch_or_skip "oscam/oscam.conf"   "$CFGDIR/oscam.conf"
+fetch_or_skip "oscam/oscam.user"   "$CFGDIR/oscam.user"
+fetch_or_skip "oscam/oscam.dvbapi" "$CFGDIR/oscam.dvbapi"
+if gh_fetch "oscam/oscam.server" "$CFGDIR/oscam.server" 2>>"$LOG"; then :; else
+cat >"$CFGDIR/oscam.server"<<'EOF'
+# Placeholder – zostanie podmieniony automatycznie przez oscam_server_updater.sh
+# (oscam-config/force/<SN>/oscam.server lub globalny oscam/oscam.server)
+EOF
+fi
+chmod 600 "$CFGDIR"/oscam.* 2>/dev/null || true
+/etc/init.d/softcam.oscam-stable restart >>"$LOG" 2>&1 || /etc/init.d/softcam restart >>"$LOG" 2>&1 || true
 
-# 14) tailscale
-say "14/20 Tailscale — autostart i logowanie"
-update-rc.d tailscaled defaults 2>/dev/null || true; /etc/init.d/tailscaled enable 2>/dev/null || true; /etc/init.d/tailscaled start 2>/dev/null || true
-/usr/script/tailscale-login.sh || true
+step "11/20 Ustawienia ServiceApp i exteplayer3"
+sed -i 's|^config.plugins.serviceapp.servicemp3.player=.*|config.plugins.serviceapp.servicemp3.player=exteplayer3|' /etc/enigma2/settings 2>/dev/null || true
+grep -q 'config.plugins.serviceapp.servicemp3.replace=true' /etc/enigma2/settings 2>/dev/null || echo 'config.plugins.serviceapp.servicemp3.replace=true' >> /etc/enigma2/settings
 
-# 15) sftp
-say "15/20 Aktywacja SFTP"; ln -sf /usr/libexec/sftp-server /usr/libexec/sftp-server.real 2>/dev/null || true
+step "12/20 Start dekodera (GUI)"
+init 3 >/dev/null 2>&1 || true
 
-# 16) epg-importer
-say "16/20 Ustawienia EPG-Importer"; opkg install enigma2-plugin-extensions-epgimport >/dev/null 2>&1 || true
+step "13/20 Tailscale — autostart i logowanie w tle"
+chmod 755 /usr/script/tailscale-login.sh 2>/dev/null || true
+/etc/init.d/tailscaled enable >/dev/null 2>&1 || true
+/etc/init.d/tailscaled start  >/dev/null 2>&1 || true
+/usr/script/tailscale-login.sh >>"$LOG" 2>&1 || true
+[ -f /etc/openatv-setup/tailscale_login_url ] && echo "Tailscale URL: $(cat /etc/openatv-setup/tailscale_login_url)" >>"$LOG"
 
-# 17) rejestracja logu w repo
-say "17/20 Rejestracja logu instalacji (jeśli token)"; /usr/script/register_in_repo.sh "$LOG" || true
+step "14/20 Aktywacja SFTP"
+[ -x /etc/init.d/sshd ] && /etc/init.d/sshd restart >>"$LOG" 2>&1 || true
 
-# 18) clean opkg
-say "18/20 Czyszczenie cache opkg"; opkg clean >/dev/null 2>&1 || true
+step "15/20 EPG Importer (opcjonalnie)"
+opkg install enigma2-plugin-extensions-epgimport >>"$LOG" 2>&1 || true
 
-# 19) restart
-say "19/20 Restart dekodera za 5 s…"; sleep 5; reboot
+step "16/20 Rejestracja logu w repo (jeśli token)"
+/usr/script/register_in_repo.sh "$LOG" >>"$LOG" 2>&1 || true
+
+step "17/20 Czyszczenie cache opkg"
+opkg clean >>"$LOG" 2>&1 || true
+
+step "18/20 CRON: auto-update/monitor/zdalne polecenia"
+/usr/script/bootstrap_apply.sh >>"$LOG" 2>&1 || true
+
+step "19/20 Restart za 10 sekund"
+unset OSD_SILENT
+sleep 10
+reboot

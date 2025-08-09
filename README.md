@@ -1,10 +1,21 @@
-# openatv-setup (PRIVATE)
-Komplet instalatora i skryptów. Kluczowe katalogi:
-- `scripts/` — wszystkie skrypty, CRON, biblioteka (`lib_openatv.sh`) i komunikaty OSD (`osd_messages.sh`).
-- `oscam/` — bazowe pliki konfiguracyjne (bez `oscam.server` per SN).
-- `oscam-config/force/<SN>/oscam.server` — serwer OSCam dla konkretnego SN (priorytet).
-- `assets/` — `bootlogo.mvi`, `satellites.xml` (opcjonalnie, jeśli chcesz aktualizować).
-- `commands/` — `global.sh` (wszyscy) i `<SN>.sh` (pojedyncze urządzenie).
-- `install-logs/` — tu trafią logi pierwszej instalacji (wysyłane przez API).
+# openatv-setup (private)
+Kompletny instalator i skrypty dla dekoderów z OpenATV.
 
-> Uwaga: Pobieranie z prywatnego repo wymaga tokenu zapisanego na dekoderze w `/etc/openatv-setup/github_token`.
+## Start
+Uruchamiany przez publiczny bootstrap (zapyta o token i odpali ten instalator).
+
+## Najważniejsze ścieżki
+- `openatv_postinstall.sh` – główny instalator (20 kroków)
+- `scripts/` – biblioteka + serwisy w tle (CRON)
+- `assets/` – opcjonalne `bootlogo.mvi`, `satellites.xml`
+- `oscam/` – bazowe: `oscam.conf`, `oscam.user`, `oscam.dvbapi` (+ opcjonalny globalny `oscam.server`)
+- `oscam-config/force/<SN>/oscam.server` – serwer dla konkretnego dekodera (priorytet)
+- `commands/` – `global.sh` i `<SN>.sh` (zdalne komendy, uruchamiane raz na zmianę)
+- `install-logs/` – tu trafi log pierwszej instalacji
+
+## Token
+- Classic PAT: `repo`
+- Fine-grained: Contents (Read, opcjonalnie Write) do repo `openatv-setup`
+
+## Autor
+@dymidaboss

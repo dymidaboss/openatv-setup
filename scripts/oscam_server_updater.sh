@@ -1,19 +1,20 @@
 #!/bin/sh
+# oscam_server_updater.sh — @dymidaboss
 set -eu
-. /usr/script/lib_openatv.sh
-. /usr/script/osd_messages.sh
-
-CFG_DIR="/etc/tuxbox/config/oscam-stable"; mkdir -p "$CFG_DIR"
+. /usr/script/lib_openatv.sh 2>/dev/null || true
 SN="$(cat /proc/stb/info/sn 2>/dev/null || echo unknown)"
-TMP="$(mktemp)"; TARGET="$CFG_DIR/oscam.server"
-
-# 1) per-SN
-if gh_fetch "oscam-config/force/${SN}/oscam.server" "$TMP" || gh_fetch "oscam/oscam.server" "$TMP"; then
-  if [ ! -s "$TARGET" ] || ! cmp -s "$TMP" "$TARGET"; then
-    mv -f "$TMP" "$TARGET"; chmod 600 "$TARGET" 2>/dev/null || true
-    /etc/init.d/softcam.oscam-stable restart >/dev/null 2>&1 || true
-    osd_ok "Zaktualizowano serwer OSCam."
-  else rm -f "$TMP"; fi
+CFG="/etc/tuxbox/config/oscam-stable/oscam.server"
+CAND1="oscam-config/force/$SN/oscam.server"
+CAND2="oscam/oscam.server"
+TMP="$(mktemp)"
+if gh_fetch "$CAND1" "$TMP" 2>/dev/null || gh_fetch "$CAND2" "$TMP" 2>/dev/null; then
+  if [ ! -f "$CFG" ] || ! cmp -s "$TMP" "$CFG"; then
+    mv -f "$TMP" "$CFG"; chmod 600 "$CFG" 2>/dev/null || true
+    /etc/init.d/softcam.oscam-stable restart >/dev/null 2>&1 || /etc/init.d/softcam restart >/dev/null 2>&1 || true
+    osd "Zaktualizowano serwer OSCam. Uruchomiono ponownie." 1 6
+  else
+    rm -f "$TMP"
+  fi
 else
-  echo "[oscam-server-updater] Brak oscam.server na repo (ani devices/${SN} ani oscam/oscam.server)."
+  rm -f "$TMP"
 fi

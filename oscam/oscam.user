@@ -1,1 +1,4 @@
-# uzupełnij konfigurację globalną oscam.user
+[account]
+user = local
+pwd = local
+au = 1

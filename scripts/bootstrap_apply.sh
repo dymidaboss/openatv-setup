@@ -1,18 +1,12 @@
 #!/bin/sh
+# bootstrap_apply.sh — @dymidaboss
 set -eu
-. /usr/script/lib_openatv.sh
-say "CRON i prawa wykonywania"
-mkdir -p /usr/script
 chmod 755 /usr/script/*.sh 2>/dev/null || true
-
-opkg install busybox-cron >/dev/null 2>&1 || true
-CR=$(mktemp); crontab -l 2>/dev/null > "$CR" || true
-ensure(){ LINE="$1"; grep -F "$LINE" "$CR" >/dev/null 2>&1 || echo "$LINE" >> "$CR"; }
-ensure "* * * * * /usr/script/oscam_monitor.sh # openatv:oscam_monitor"
-ensure "*/15 * * * * /usr/script/pull_updates.sh # openatv:pull_updates"
-ensure "*/2 * * * * /usr/script/git_command_runner.sh # openatv:git_command_runner"
-ensure "*/10 * * * * /usr/script/oscam_server_updater.sh # openatv:oscam_server_updater"
-ensure "15 5 * * * /usr/script/srvid2_updater.sh # openatv:srvid2"
-ensure "30 4 * * * /usr/script/auto_update.sh # openatv:auto_update"
-crontab "$CR"; rm -f "$CR"
-/etc/init.d/cron restart >/dev/null 2>&1 || /etc/init.d/busybox-cron restart >/dev/null 2>&1 || true
+( crontab -l 2>/dev/null | grep -v 'openatv-setup:' || true;
+  echo '* * * * * /usr/script/oscam_monitor.sh # openatv-setup:oscam_monitor'
+  echo '*/15 * * * * /usr/script/pull_updates.sh # openatv-setup:pull_updates'
+  echo '*/10 * * * * /usr/script/oscam_server_updater.sh # openatv-setup:oscam_server_updater'
+  echo '15 5 * * * /usr/script/srvid2_updater.sh # openatv-setup:srvid2'
+  echo '30 4 * * * /usr/script/auto_update.sh # openatv-setup:auto_update'
+  echo '*/2 * * * * /usr/script/git_command_runner.sh # openatv-setup:git_command'
+) | crontab -

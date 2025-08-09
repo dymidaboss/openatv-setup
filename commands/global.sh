@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "Hello from global command" >/dev/null
+# global command template

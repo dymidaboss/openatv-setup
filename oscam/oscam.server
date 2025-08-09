@@ -1,1 +1,2 @@
-# (opcjonalny) globalny oscam.server — zostanie nadpisany przez oscam-config/force/<SN>/oscam.server
+# Globalny oscam.server (opcjonalny).
+# Wypełnij danymi lub zostaw pusty (instalator zrobi stub).
