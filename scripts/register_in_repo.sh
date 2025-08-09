@@ -1,12 +1,28 @@
 #!/bin/sh
-# register_in_repo.sh — @dymidaboss
-set -eu
-. /usr/script/lib_openatv.sh 2>/dev/null || true
-LOGFILE="${1:-}"; [ -n "$LOGFILE" ] || exit 0
-SN="$(cat /proc/stb/info/sn 2>/dev/null || echo unknown)"
-[ -n "${GITHUB_TOKEN:-}" ] || exit 0
-B64=$(base64 -w0 "$LOGFILE" 2>/dev/null || openssl base64 -A -in "$LOGFILE")
-PATH_API="install-logs/$SN/$(basename "$LOGFILE")"
-JSON="{\"message\":\"log: $(basename "$LOGFILE")\",\"content\":\"$B64\"}"
-curl -fsS -X PUT -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" \
-  -d "$JSON" "https://api.github.com/repos/$OWNER/$REPO/contents/$PATH_API?ref=$BRANCH" >/dev/null 2>&1 || true
+# Upload logu instalacji do repo install-logs/<SN>/...
+set -Eeuo pipefail
+OWNER="${OWNER_SETUP:-dymidaboss}"
+REPO="${REPO_SETUP:-openatv-setup}"
+BRANCH="${BRANCH_SETUP:-main}"
+
+BASE="/etc/openatv-setup"
+TOKEN="$(cat "$BASE/github_token" 2>/dev/null || true)"
+[ -n "$TOKEN" ] || exit 0
+
+SN(){
+  for f in /proc/stb/info/sn /proc/stb/info/serial /proc/stb/info/board_serial; do
+    [ -r "$f" ] && { cat "$f"; return; }
+  done
+  ip link 2>/dev/null | awk '/ether/ {print $2; exit}' | tr -d ':'
+}
+
+LOG="$1"
+[ -f "$LOG" ] || exit 0
+
+P="install-logs/$(SN)/$(basename "$LOG")"
+CONTENT="$(base64 -w0 "$LOG")"
+MSG="upload install log $(date -Iseconds)"
+curl -fsSL -X PUT -H "Authorization: Bearer $TOKEN" \
+  -d "{\"message\":\"$MSG\",\"content\":\"$CONTENT\",\"branch\":\"$BRANCH\"}" \
+  "https://api.github.com/repos/$OWNER/$REPO/contents/$P" >/dev/null 2>&1 || true
+exit 0

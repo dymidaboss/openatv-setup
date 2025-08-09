@@ -1,13 +1,10 @@
 #!/bin/sh
-# tailscale-login.sh — @dymidaboss
-set -eu
-LOG="/var/log/tailscale-login.log"
-URLFILE="/etc/openatv-setup/tailscale_login_url"
-mkdir -p /etc/openatv-setup
-: > "$LOG"
-/etc/init.d/tailscaled enable >/dev/null 2>&1 || true
-/etc/init.d/tailscaled start  >/dev/null 2>&1 || true
-( tailscale up --reset --accept-dns=true --accept-routes=true > /tmp/ts.out 2>&1 || true ) &
-sleep 2
-URL="$(sed -n 's|.*\(https://login.tailscale.com/a/[A-Za-z0-9_-]*\).*|\1|p' /tmp/ts.out | head -1)"
-[ -n "$URL" ] && echo "$URL" > "$URLFILE" || true
+set -Eeuo pipefail
+BASE="/etc/openatv-setup"
+mkdir -p "$BASE"
+if ! pgrep -f '[t]ailscaled' >/dev/null 2>&1; then
+  /etc/init.d/tailscaled start 2>/dev/null || true
+fi
+URL="$(tailscale up --ssh --accept-routes=false --accept-dns=true --reset --authkey= 2>&1 | sed -n 's/.*visit //p' | head -1)"
+[ -n "$URL" ] && printf "%s" "$URL" > "$BASE/tailscale_login_url" || true
+exit 0

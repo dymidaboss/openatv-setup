@@ -1,13 +1,23 @@
 #!/bin/sh
-# oscam_monitor.sh — @dymidaboss
-set -eu
-. /usr/script/lib_openatv.sh 2>/dev/null || true
-if ! ping -c1 -W2 8.8.8.8 >/dev/null 2>&1; then osd "Brak internetu. Sprawdź Wi‑Fi/kabel." 3 8; exit 0; fi
-if ! pidof oscam >/dev/null 2>&1; then
-  /etc/init.d/softcam.oscam-stable start >/dev/null 2>&1 || /etc/init.d/softcam start >/dev/null 2>&1 || true
-  sleep 2
-  if ! pidof oscam >/dev/null 2>&1; then osd "OSCam nie działa. Próba uruchomienia nieudana." 3 8; exit 0; fi
+# Monitor OSCam: internet, proces, pliki, port 8080
+set -Eeuo pipefail
+
+# 1) internet
+if ! ping -c1 -W2 1.1.1.1 >/dev/null 2>&1; then
+  exit 0
 fi
-if ! grep -Eq '^[ \t]*(C:|cs357x|newcamd)' /etc/tuxbox/config/oscam-stable/oscam.server 2>/dev/null; then
-  osd "Brak konfiguracji serwera w OSCam. Zaczekaj na synchronizację." 2 8
+
+# 2) proces oscam
+if ! pgrep -f '[o]scam' >/dev/null 2>&1; then
+  /etc/init.d/softcam.oscam-stable restart 2>/dev/null || /etc/init.d/softcam restart 2>/dev/null || true
+  sleep 3
 fi
+
+# 3) plik serwera
+if [ ! -s /etc/tuxbox/config/oscam-stable/oscam.server ]; then
+  exit 0
+fi
+
+# 4) port webif
+nc -z 127.0.0.1 8080 >/dev/null 2>&1 || true
+exit 0

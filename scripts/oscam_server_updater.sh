@@ -1,20 +1,38 @@
 #!/bin/sh
-# oscam_server_updater.sh — @dymidaboss
-set -eu
-. /usr/script/lib_openatv.sh 2>/dev/null || true
-SN="$(cat /proc/stb/info/sn 2>/dev/null || echo unknown)"
-CFG="/etc/tuxbox/config/oscam-stable/oscam.server"
-CAND1="oscam-config/force/$SN/oscam.server"
-CAND2="oscam/oscam.server"
-TMP="$(mktemp)"
-if gh_fetch "$CAND1" "$TMP" 2>/dev/null || gh_fetch "$CAND2" "$TMP" 2>/dev/null; then
-  if [ ! -f "$CFG" ] || ! cmp -s "$TMP" "$CFG"; then
-    mv -f "$TMP" "$CFG"; chmod 600 "$CFG" 2>/dev/null || true
-    /etc/init.d/softcam.oscam-stable restart >/dev/null 2>&1 || /etc/init.d/softcam restart >/dev/null 2>&1 || true
-    osd "Zaktualizowano serwer OSCam. Uruchomiono ponownie." 1 6
+# Aktualizacja oscam.server: per-SN (force) albo globalny
+set -Eeuo pipefail
+OWNER="${OWNER_SETUP:-dymidaboss}"
+REPO="${REPO_SETUP:-openatv-setup}"
+BRANCH="${BRANCH_SETUP:-main}"
+
+. /usr/script/lib_openatv.sh
+
+SN(){
+  for f in /proc/stb/info/sn /proc/stb/info/serial /proc/stb/info/board_serial; do
+    [ -r "$f" ] && { cat "$f"; return; }
+  done
+  ip link 2>/dev/null | awk '/ether/ {print $2; exit}' | tr -d ':'
+}
+
+DST="/etc/tuxbox/config/oscam-stable"; mkdir -p "$DST"
+TMP="/tmp/.oscam.server"
+
+# force per SN
+if gh_fetch "$OWNER" "$REPO" "$BRANCH" "oscam-config/force/$(SN)/oscam.server" > "$TMP" 2>/dev/null && [ -s "$TMP" ]; then
+  mv "$TMP" "$DST/oscam.server" && chmod 600 "$DST/oscam.server"
+  /etc/init.d/softcam.oscam-stable restart 2>/dev/null || /etc/init.d/softcam restart 2>/dev/null || true
+  exit 0
+fi
+rm -f "$TMP" 2>/dev/null || true
+
+# globalny
+if gh_fetch "$OWNER" "$REPO" "$BRANCH" "oscam/oscam.server" > "$TMP" 2>/dev/null && [ -s "$TMP" ]; then
+  if ! cmp -s "$TMP" "$DST/oscam.server" 2>/dev/null; then
+    mv "$TMP" "$DST/oscam.server" && chmod 600 "$DST/oscam.server"
+    /etc/init.d/softcam.oscam-stable restart 2>/dev/null || /etc/init.d/softcam restart 2>/dev/null || true
   else
     rm -f "$TMP"
   fi
-else
-  rm -f "$TMP"
 fi
+
+exit 0
